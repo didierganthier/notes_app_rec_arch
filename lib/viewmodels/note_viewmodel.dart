@@ -27,4 +27,14 @@ class NoteViewmodel extends ChangeNotifier {
     await _noteRepository.addNote(newNote);
     fetchNotes();
   }
+
+  Future<void> updateNote(Note note) async {
+    await _noteRepository.updateNote(note);
+    fetchNotes();
+  }
+
+  Future<void> deleteNote(int id) async {
+    await _noteRepository.deleteNote(id);
+    fetchNotes();
+  }
 }
