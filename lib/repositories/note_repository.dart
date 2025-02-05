@@ -3,7 +3,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-class TaskRepository {
+class NoteRepository {
   Database? _database;
 
   Future<Database> get database async {
@@ -43,7 +43,7 @@ class TaskRepository {
     return await db.insert('notes', note.toJson());
   }
 
-  Future<int> updateTask(Note note) async {
+  Future<int> updateNote(Note note) async {
     final db = await database;
     return await db
         .update('notes', note.toJson(), where: 'id=?', whereArgs: [note.id]);
