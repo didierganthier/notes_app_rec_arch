@@ -48,4 +48,9 @@ class TaskRepository {
     return await db
         .update('notes', note.toJson(), where: 'id=?', whereArgs: [note.id]);
   }
+
+  Future<int> deleteNote(int id) async {
+    final db = await database;
+    return await db.delete('notes', where: 'id=?', whereArgs: [id]);
+  }
 }
