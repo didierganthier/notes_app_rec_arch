@@ -9,26 +9,39 @@ class NoteListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final noteViewModel = Provider.of<NoteViewmodel>(context);
     return Scaffold(
+      backgroundColor: Colors.pink[100],
       appBar: AppBar(
-        title: const Text('Notes'),
+        backgroundColor: Colors.pink[200],
+        title: const Text('Notes', style: TextStyle(color: Colors.black)),
       ),
       body: ListView.builder(
         itemCount: noteViewModel.notes.length,
         itemBuilder: (context, index) {
           final note = noteViewModel.notes[index];
-          return Card(
-            child: ListTile(
-              title: Text(note.title),
-              subtitle: Text(note.content),
-              trailing: IconButton(
-                onPressed: () => noteViewModel.deleteNote(note.id),
-                icon: const Icon(Icons.delete),
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              color: Colors.pink[50],
+              child: ListTile(
+                title: Text(
+                  note.title,
+                  style: const TextStyle(color: Colors.black),
+                ),
+                subtitle: Text(
+                  note.content,
+                  style: const TextStyle(color: Colors.black),
+                ),
+                trailing: IconButton(
+                  onPressed: () => noteViewModel.deleteNote(note.id),
+                  icon: const Icon(Icons.delete, color: Colors.black),
+                ),
               ),
             ),
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.pink[200],
         onPressed: () {
           showDialog(
             context: context,
@@ -64,6 +77,12 @@ class NoteListScreen extends StatelessWidget {
                       if (title.isNotEmpty && content.isNotEmpty) {
                         noteViewModel.addNote(title, content);
                         Navigator.of(context).pop();
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Title and content cannot be empty'),
+                          ),
+                        );
                       }
                     },
                     child: const Text('Add'),
@@ -73,7 +92,7 @@ class NoteListScreen extends StatelessWidget {
             },
           );
         },
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add, color: Colors.black),
       ),
     );
   }
